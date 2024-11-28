@@ -93,11 +93,9 @@ export function FinancementContractList({ financement }) {
                       <div className="flex flex-row justify-between">
                         <label>Methode de payment:</label>
 
-                        <p className="text-xs text-muted-foreground">
-                          <Badge variant="secondary">
-                            {financement?.methodeDePaiement}
-                          </Badge>
-                        </p>
+                        <Badge variant="secondary">
+                          {financement?.methodeDePaiement}
+                        </Badge>
                       </div>
                     </CardContent>
 

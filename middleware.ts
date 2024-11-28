@@ -26,13 +26,15 @@ export async function middleware(request: NextRequest) {
 
   console.log("publicRoute", isPublicRoute);
 
-  if (!isAuthenticated && !isPublicRoute && nextUrl.pathname !== "/login")
+  if (!isAuthenticated && !isPublicRoute) {
     return NextResponse.rewrite(new URL(LOGIN, nextUrl));
+  }
   if (
     isAuthenticated &&
     (nextUrl.pathname.startsWith(SIGN_UP) || nextUrl.pathname.startsWith(LOGIN))
-  )
+  ) {
     return NextResponse.rewrite(new URL(ROOT, nextUrl));
+  }
 }
 
 export const config = {

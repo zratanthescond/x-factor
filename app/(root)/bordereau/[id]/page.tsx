@@ -14,13 +14,15 @@ import { instance } from "@/lib/instance";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
 import { validateBordereau } from "../actions";
+import { resolveRefs } from "@/lib/utils";
 
 export default async function Bordereau({ params }) {
   const id = await params;
   const bordereauWithFacture = await instance.get(
     `/api/Bordereau/factures/${id.id}`
   );
-  const bordereau = bordereauWithFacture.data;
+  const bordereau = resolveRefs(bordereauWithFacture.data);
+  console.log(bordereau.factures);
   function bordereauStaus(status) {
     switch (status) {
       case 2:
@@ -66,7 +68,6 @@ export default async function Bordereau({ params }) {
             {bordereau?.statut == 2 && (
               <form
                 action={validateBordereau}
-                method="post"
                 className="flex flex-1 w-full flex-row items-center justify-between gap-4 space-y-0 p-2 border-2 rounded-lg"
               >
                 <input

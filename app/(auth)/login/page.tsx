@@ -1,4 +1,6 @@
+"use client";
 import { doCredentialLogin } from "@/app/actions";
+import { auth } from "@/app/auth";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,7 +10,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { redirect } from "next/navigation";
+
 export default function Login() {
+  const hadnleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    const res = await doCredentialLogin(formData);
+    if (res) {
+      redirect("/");
+      console.log(res);
+    }
+  };
   return (
     <div className="flex w-full h-screen flex-col items-center justify-center">
       <Card>
@@ -17,7 +31,7 @@ export default function Login() {
           <CardDescription>x-FACTOR Admin</CardDescription>
         </CardHeader>
         <CardContent>
-          <form action={doCredentialLogin}>
+          <form onSubmit={(e) => hadnleFormSubmit(e)} method="post">
             <div className="flex flex-col p-5 m-3 gap-4">
               <label htmlFor="email">Email</label>
               <input

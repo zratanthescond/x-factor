@@ -9,8 +9,7 @@ import {
 } from "../ui/card";
 import { ScrollBar } from "../ui/scroll-area";
 import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
-import { validateLimite } from "@/app/(root)/contract/actions";
+
 import LimietionControl from "../shared/LimiteControl";
 
 export function LimiteContractList({ limites }) {

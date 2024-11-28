@@ -1,7 +1,8 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { redirect, RedirectType } from "next/navigation";
 import { signIn, signOut } from "../auth";
+
 export async function doSocialLogin(formData: FormData) {
   const action = formData.get("action");
   if (action !== null) {
@@ -21,11 +22,8 @@ export async function doCredentialLogin(formData: FormData) {
     const response = await signIn("credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
-      redirect: true,
+      redirect: false,
     });
-    revalidatePath("/");
-    console.log("response", response);
-    console.log(response);
     return response;
   } catch (err) {
     console.error(err);
